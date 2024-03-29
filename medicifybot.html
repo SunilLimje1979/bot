@@ -390,7 +390,7 @@ function botResponse() {
     Script_Action_Input = msgerInput.value;
     //https://www.gyaagl.app/apis/chatbot/chataction
     
-    fetch("file:///D:/Python/Appwelt/appwelt_git/bot/chatbot/chataction.py", {
+    fetch("http://13.233.211.102/boat/chatbot/chataction.py", {
           method: "POST",
           body: JSON.stringify({
                 App_Id: APP_ID,
@@ -504,7 +504,7 @@ function setLanguageselection(language)
     else if (language=='HI')
         document.getElementById('lnkHindi').style.color = '#dbc752';
     //https://www.gyaagl.app/apis/chatbot/chataction
-    fetch("file:///D:/Python/Appwelt/appwelt_git/bot/chatbot/chataction.py", {
+    fetch("http://13.233.211.102/boat/chatbot/chataction.py", {
           method: "POST",
           mode: 'cors',
           body: JSON.stringify({
