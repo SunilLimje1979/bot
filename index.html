@@ -306,11 +306,11 @@ const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
 
-const APP_ID = 1;
-const USER_ID = Date.now();
-let currentScript_Code = 0;
+const Location_token = "test_token";
+const USER_ID = 1;
+let currentScript_Code = 1;
 let currentScript_Option_Id = 0;
-let currentScript_Langauge = 'EN';
+let currentScript_Langauge = 'hi';
 let currentScript = "";
 let currentScript_Action_Input = "";
 let currentScript_Option_Value = "";
@@ -395,13 +395,13 @@ function botResponse() {
           method: "POST",
           mode: 'cors',
           body: JSON.stringify({
-                // App_Id: APP_ID,
-                // User_Id: USER_ID,
-                // Script_Code: currentScript_Code,
-                // Script_Option_Id: currentScript_Option_Id,
-                // Script_Option_Langauge: currentScript_Langauge,
-                // Script_Action_Input: currentScript_Action_Input,
-                // Script_Option_Value: currentScript_Option_Value
+                Location_token: Location_token,
+                User_Id: USER_ID,
+                Script_Code: currentScript_Code,
+                Script_Option_Id: currentScript_Option_Id,
+                Script_Option_Langauge: currentScript_Langauge,
+                Script_Action_Input: currentScript_Action_Input,
+                Script_Option_Value: currentScript_Option_Value
               }),
           headers: {
             "Content-type": "application/json; charset=UTF-8"
@@ -510,7 +510,7 @@ function setLanguageselection(language)
           method: "POST",
           mode: 'cors',
           body: JSON.stringify({
-            App_Id: APP_ID,
+            Location_token: Location_token,
             Script_Code: lastScript_Code,
             Script_Option_Id: lastScript_Option_Id,
             Script_Option_Langauge: currentScript_Langauge,
