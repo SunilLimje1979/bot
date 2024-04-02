@@ -439,49 +439,89 @@ function random(min, max) {
 }
 
 
-function processResponse(resData)
-{
-    if (resData.message_code == 1000)
-    {
+// function processResponse(resData)
+// {
+//     if (resData.message_code == 1000)
+//     {
+//         lastScript_Code = currentScript_Code;
+//         lastScript_Option_Id = currentScript_Option_Id;
+//         lastScript_Action_Input = currentScript_Action_Input;
+//         lastScript_Option_Value = currentScript_Option_Value;
+        
+//         currentScript = resData.message_data[0];
+//         let msgText = currentScript.Script_Text;
+//         currentScript_Code = currentScript.Script_Code;
+        
+//         if (currentScript.Script_Options.length > 0)
+//         {
+//             if (currentScript.Script_Options[0].Script_Option_Type == 1)
+//                 msgText = msgText + "<br/>";
+//             let i = 0;
+//             for (i=0;i<currentScript.Script_Options.length; i++)
+//             {
+//                 if (currentScript.Script_Options[i].Script_Option_Type == 1)
+//                 {
+//                     msgText = msgText + "<button name='Obj_" + currentScript.Script_Options[i].Script_Code + "' class='msger-response-btn' type='button' onClick='javascript:SelectedOption(this," + currentScript.Script_Options[i].Script_Option_Id + ",\"" + currentScript.Script_Options[i].Script_Option_Value + "\");'>" + currentScript.Script_Options[i].Script_Option_Text + "</button>";
+//                 }
+//                 else if (currentScript.Script_Options[i].Script_Option_Type == 0)
+//                 {
+//                     botResponse();        
+//                 }
+//                 else
+//                 {
+//                     currentScript_Option_Id = currentScript.Script_Options[i].Script_Option_Id;
+//                     currentScript_Option_Value = currentScript.Script_Options[i].Script_Option_Value;
+//                 }
+//             }
+//         }
+        
+//         if (currentScript.Script_Options.length == 1)
+//         { 
+//             msgerInput.disabled = false;  msgerInput.focus(); 
+//         }
+//         else
+//             msgerInput.disabled = true;
+            
+//         appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+//     }
+// }
+
+
+function processResponse(resData) {
+    if (resData.message_code === 1000) {
         lastScript_Code = currentScript_Code;
         lastScript_Option_Id = currentScript_Option_Id;
         lastScript_Action_Input = currentScript_Action_Input;
         lastScript_Option_Value = currentScript_Option_Value;
-        
+
         currentScript = resData.message_data[0];
         let msgText = currentScript.Script_Text;
         currentScript_Code = currentScript.Script_Code;
-        
-        if (currentScript.Script_Options.length > 0)
-        {
-            if (currentScript.Script_Options[0].Script_Option_Type == 1)
-                msgText = msgText + "<br/>";
-            let i = 0;
-            for (i=0;i<currentScript.Script_Options.length; i++)
-            {
-                if (currentScript.Script_Options[i].Script_Option_Type == 1)
-                {
-                    msgText = msgText + "<button name='Obj_" + currentScript.Script_Options[i].Script_Code + "' class='msger-response-btn' type='button' onClick='javascript:SelectedOption(this," + currentScript.Script_Options[i].Script_Option_Id + ",\"" + currentScript.Script_Options[i].Script_Option_Value + "\");'>" + currentScript.Script_Options[i].Script_Option_Text + "</button>";
+
+        // Clear any existing options
+        msgerResponse.innerHTML = '';
+
+        // Check if there are script options
+        if (currentScript.Script_Options && currentScript.Script_Options.length > 0) {
+            currentScript.Script_Options.forEach(option => {
+                if (option.Script_Option_Type === 1) {
+                    // Button option
+                    msgText += "<button name='Obj_" + option.Script_Code + "' class='msger-response-btn' type='button' onClick='javascript:SelectedOption(this," + option.Script_Option_Id + ",\"" + option.Script_Option_Value + "\");'>" + option.Script_Option_Text + "</button>";
+                } else if (option.Script_Option_Type === 0) {
+                    // Execute botResponse function
+                    botResponse();
+                } else {
+                    // Update currentScript_Option_Id and currentScript_Option_Value
+                    currentScript_Option_Id = option.Script_Option_Id;
+                    currentScript_Option_Value = option.Script_Option_Value;
                 }
-                else if (currentScript.Script_Options[i].Script_Option_Type == 0)
-                {
-                    botResponse();        
-                }
-                else
-                {
-                    currentScript_Option_Id = currentScript.Script_Options[i].Script_Option_Id;
-                    currentScript_Option_Value = currentScript.Script_Options[i].Script_Option_Value;
-                }
-            }
+            });
         }
-        
-        if (currentScript.Script_Options.length == 1)
-        { 
-            msgerInput.disabled = false;  msgerInput.focus(); 
-        }
-        else
-            msgerInput.disabled = true;
-            
+
+        // Enable or disable input based on the number of options
+        msgerInput.disabled = currentScript.Script_Options.length === 1 ? false : true;
+
+        // Append the message to the chat window
         appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
     }
 }
