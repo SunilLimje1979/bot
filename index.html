@@ -390,16 +390,18 @@ function botResponse() {
     Script_Action_Input = msgerInput.value;
     //https://www.gyaagl.app/apis/chatbot/chataction
     
-    fetch("http://13.233.211.102/boat/chatbot/chataction.py", {
+    // http://13.233.211.102/boat/chatbot/chataction.py
+    fetch("http://13.233.211.102/appointmentbot/api/get_chat/", {
           method: "POST",
+          mode: 'cors',
           body: JSON.stringify({
-                App_Id: APP_ID,
-                User_Id: USER_ID,
-                Script_Code: currentScript_Code,
-                Script_Option_Id: currentScript_Option_Id,
-                Script_Option_Langauge: currentScript_Langauge,
-                Script_Action_Input: currentScript_Action_Input,
-                Script_Option_Value: currentScript_Option_Value
+                // App_Id: APP_ID,
+                // User_Id: USER_ID,
+                // Script_Code: currentScript_Code,
+                // Script_Option_Id: currentScript_Option_Id,
+                // Script_Option_Langauge: currentScript_Langauge,
+                // Script_Action_Input: currentScript_Action_Input,
+                // Script_Option_Value: currentScript_Option_Value
               }),
           headers: {
             "Content-type": "application/json; charset=UTF-8"
@@ -504,7 +506,7 @@ function setLanguageselection(language)
     else if (language=='HI')
         document.getElementById('lnkHindi').style.color = '#dbc752';
     //https://www.gyaagl.app/apis/chatbot/chataction
-    fetch("http://13.233.211.102/boat/chatbot/chataction.py", {
+    fetch("http://13.233.211.102/appointmentbot/api/get_chat/", {
           method: "POST",
           mode: 'cors',
           body: JSON.stringify({
