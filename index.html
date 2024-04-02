@@ -391,7 +391,7 @@ function botResponse() {
     //https://www.gyaagl.app/apis/chatbot/chataction
     
     // http://13.233.211.102/boat/chatbot/chataction.py
-    fetch("http://13.233.211.102/appointmentbot/api/get_chat/", {
+    fetch("http://13.233.211.102/appointmentbot/api/get_chat_data/", {
           method: "POST",
           mode: 'cors',
           body: JSON.stringify({
@@ -506,7 +506,7 @@ function setLanguageselection(language)
     else if (language=='HI')
         document.getElementById('lnkHindi').style.color = '#dbc752';
     //https://www.gyaagl.app/apis/chatbot/chataction
-    fetch("http://13.233.211.102/appointmentbot/api/get_chat/", {
+    fetch("http://13.233.211.102/appointmentbot/api/get_chat_data/", {
           method: "POST",
           mode: 'cors',
           body: JSON.stringify({
