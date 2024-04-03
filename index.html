@@ -449,7 +449,7 @@ function processResponse(resData)
         lastScript_Option_Value = currentScript_Option_Value;
         
         currentScript = resData.message_data[0];
-        let msgText = currentScript.Script_Option_Text;
+        let msgText = currentScript.Script_Text;
         currentScript_Code = currentScript.Script_Code;
         
         if (currentScript.Script_Options.length > 0)
