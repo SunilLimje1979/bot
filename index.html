@@ -707,7 +707,7 @@ const USER_ID = Date.now();
       Script_Action_Input = msgerInput.value;
       //https://www.gyaagl.app/apis/chatbot/chataction
       
-      fetch("http://13.233.211.102/appointmentbot/api/get_chat_data/", {
+      fetch("http://13.233.211.102/appointmentbot/api/get_chat_action/", {
             method: "POST",
             body: JSON.stringify({
               Location_token: Location_token,
@@ -821,7 +821,7 @@ const USER_ID = Date.now();
       else if (language=='HI')
           document.getElementById('lnkHindi').style.color = '#dbc752';
       //https://www.gyaagl.app/apis/chatbot/chataction
-      fetch("http://13.233.211.102/appointmentbot/api/get_chat_data/", {
+      fetch("http://13.233.211.102/appointmentbot/api/get_chat_action/", {
             method: "POST",
             mode: 'cors',
             body: JSON.stringify({
