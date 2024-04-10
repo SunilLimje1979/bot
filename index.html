@@ -620,7 +620,7 @@ fetch("http://13.233.211.102/doctor/api/get_doctor_location_bylocationtoken/", {
 .then(response => response.json())
 .then(data => {
   // Extract the location_image from the API response
-  const locationImage = data.message_data.location_image;
+  const locationImage = data.message_data[0].location_image;
 
   // Get the location_image element by ID
   const locationImageElement = document.getElementById('logo_image');
