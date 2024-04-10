@@ -583,7 +583,15 @@ const USER_ID = Date.now();
   const msgerInput = get(".msger-input");
   const msgerChat = get(".msger-chat");
   
-  const Location_token = "test_token";
+  var currentURL = window.location.href;
+
+// Find the position of '/bot/'
+var botIndex = currentURL.indexOf("/bot/");
+
+// Extract the text after '/bot/'
+var extractedText = currentURL.substring(botIndex + 5);
+
+  const Location_token = extractedText;
 const USER_ID = Date.now();
   let currentScript_Code = 0;
   let currentScript_Option_Id = 0;
