@@ -624,9 +624,9 @@ fetch("http://13.233.211.102/doctor/api/get_doctor_location_bylocationtoken/", {
 
   // Get the location_image element by ID
   const locationImageElement = document.getElementById('logo_image');
-
+  var result = locationImage.replace(/^\/staticfiles\/media\//, '');
   // Set the src attribute of the location_image element to the retrieved locationImage
-  locationImageElement.src = "http://13.233.211.102/doctor/static/media/"+locationImage;
+  locationImageElement.src = "http://13.233.211.102/doctor/static/media/"+result;
 })
 .catch(error => {
   console.error('Error fetching API:', error);
