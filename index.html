@@ -315,7 +315,7 @@ body {
   
 
   const Location_token = id;
-const USER_ID = Date.now();
+const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
   let currentScript_Code = 0;
   let currentScript_Option_Id = 0;
   let currentScript_Langauge = 'EN';
@@ -330,7 +330,7 @@ const USER_ID = Date.now();
   // Icons made by Freepik from www.flaticon.com
   const BOT_IMG = "https://www.gyaagl.app/applications/aryavedic/chatbot/images/aryavediclogo.png";
   const PERSON_IMG = "https://www.gyaagl.app/applications/aryavedic/chatbot/images/chatusericon.png";
-  const BOT_NAME = "Dr. Mohite";
+  let BOT_NAME = "Dr. Mohit";
   const PERSON_NAME = "You";
   
   
@@ -397,6 +397,7 @@ const USER_ID = Date.now();
   function botResponse() {
       Script_Action_Input = msgerInput.value;
       //https://www.gyaagl.app/apis/chatbot/chataction
+      //http://localhost:8000/appointmentbot/api/get_chat_action/
       
       fetch("http://13.233.211.102/appointmentbot/api/get_chat_action/", {
             method: "POST",
@@ -416,6 +417,7 @@ const USER_ID = Date.now();
       .then(resData => 
       {
           processResponse(resData);
+    
       });
       
    /* const r = random(0, BOT_MSGS.length - 1);
@@ -473,7 +475,7 @@ const USER_ID = Date.now();
                   {
                       botResponse();        
                   }
-                  else if (currentScript.Script_Options[i].Script_Option_Type == 5)
+               /*   else if (currentScript.Script_Options[i].Script_Option_Type == 5)
                   {
                       if (currentScript.Script_Options[i].Script_Option_Text == "{TENDATES}")
                       {
@@ -486,7 +488,14 @@ const USER_ID = Date.now();
                           }
                       }
                       
-                  }
+                  }*/
+                   
+                
+                   
+
+                   
+                
+                
                   else
                   {
                       currentScript_Option_Id = currentScript.Script_Options[i].Script_Option_Id;
@@ -607,28 +616,86 @@ const USER_ID = Date.now();
   
    
 // Call the API
-fetch("http://13.233.211.102/doctor/api/get_doctor_location_bylocationtoken/", {
-  method: "POST",
-  mode: 'cors',
-  body: JSON.stringify({
-    location_token: Location_token
-  }),
-  headers: {
-    "Content-type": "application/json; charset=UTF-8"
-  }
-})
-.then(response => response.json())
-.then(data => {
-  // Extract the location_image from the API response
-  const locationImage = data.message_data[0].location_image;
+//fetch("http://13.233.211.102/doctor/api/get_doctor_location_bylocationtoken/", {
+// fetch("http://localhost:8001/doctor/api/get_doctor_location_bylocationtoken/", {
+//   method: "POST",
+//   mode: 'cors',
+//   body: JSON.stringify({
+//     location_token: Location_token
+//   }),
+//   headers: {
+//     "Content-type": "application/json; charset=UTF-8"
+//   }
+// })
+// console.log(response.json())
+// .then(response => response.json())
 
-  // Get the location_image element by ID
-  const locationImageElement = document.getElementById('logo_image');
-  var result = locationImage.replace(/^\/staticfiles\/media\//, '');
-  // Set the src attribute of the location_image element to the retrieved locationImage
-  locationImageElement.src = "http://13.233.211.102/doctor/static/media/"+result;
-})
-.catch(error => {
-  console.error('Error fetching API:', error);
-});
-  </script>
+// .then(data => {
+//   // Extract the location_image from the API response
+//   const locationImage = data.message_data[0].location_image;
+
+//    // Extract location_title from the first item in message_data array
+//    const locationTitle = data.message_data[0].location_title;
+    
+//     // Update BOT_NAME with location_title
+//     BOT_NAME = locationTitle;
+//     console.log("Updated BOT_NAME:", BOT_NAME);
+  
+//   // Get the location_image element by ID
+//   const locationImageElement = document.getElementById('logo_image');
+//   var result = locationImage.replace(/^\/staticfiles\/media\//, '');
+//   // Set the src attribute of the location_image element to the retrieved locationImage
+//   locationImageElement.src = "http://13.233.211.102/doctor/static/media/"+result;
+// })
+// .catch(error => {
+//   console.error('Error fetching API:', error);
+// });
+// Call the API to retrieve doctor location data
+    fetch("http://13.233.211.102/doctor/api/get_doctor_location_bylocationtoken/", {
+      method: "POST",
+      mode: 'cors',
+      body: JSON.stringify({
+        location_token: Location_token
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Check if message_data array exists and has at least one item
+      if (data.message_data && data.message_data.length > 0) {
+        // Extract location_title from the first item in message_data array
+        const locationTitle = data.message_data[0].location_title;
+        
+        // Update BOT_NAME with location_title
+        BOT_NAME = locationTitle;
+        console.log("Updated BOT_NAME:", BOT_NAME);
+
+        // Extract location_image from the API response
+        const locationImage = data.message_data[0].location_image;
+      
+        // Get the location_image element by ID
+        const locationImageElement = document.getElementById('logo_image');
+        if (locationImage) {
+          // If location_image exists, set the src attribute of the location_image element
+          var result = locationImage.replace(/^\/staticfiles\/media\//, '');
+          locationImageElement.src = "http://13.233.211.102/doctor/static/media/" + result;
+        } else {
+          // Handle case where location_image is not available
+          locationImageElement.src = "http://13.233.211.102/doctor/static/media/location_images/cliniclogo2.jpg";
+          console.warn('Location image not found in the API response');
+        }
+      } else {
+        console.error('No data or empty message_data array in the API response');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching API:', error);
+    });
+</script>
