@@ -400,6 +400,7 @@ const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
       //http://localhost:8000/appointmentbot/api/get_chat_action/
       
       fetch("http://13.233.211.102/appointmentbot/api/get_chat_action/", {
+         // fetch("http://localhost:8000/appointmentbot/api/get_chat_action/", {
             method: "POST",
             body: JSON.stringify({
               Location_token: Location_token,
@@ -414,6 +415,7 @@ const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
               "Content-type": "application/json; charset=UTF-8"
             }
       }).then(response => response.json())
+      
       .then(resData => 
       {
           processResponse(resData);
@@ -460,57 +462,40 @@ const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
           let msgText = currentScript.Script_Text;
           currentScript_Code = currentScript.Script_Code;
           
-          if (currentScript.Script_Options.length > 0)
-          {
-              if (currentScript.Script_Options[0].Script_Option_Type == 1)
-                  msgText = msgText + "<br/>";
-              let i = 0;
-              for (i=0;i<currentScript.Script_Options.length; i++)
-              {
-                  if (currentScript.Script_Options[i].Script_Option_Type == 1)
-                  {
-                      msgText = msgText + "<button name='Obj_" + currentScript.Script_Options[i].Script_Code + "' class='msger-response-btn' type='button' onClick='javascript:SelectedOption(this," + currentScript.Script_Options[i].Script_Option_Id + ",\"" + currentScript.Script_Options[i].Script_Option_Value + "\");'>" + currentScript.Script_Options[i].Script_Option_Text + "</button>";
-                  }
-                  else if (currentScript.Script_Options[i].Script_Option_Type == 0)
-                  {
-                      botResponse();        
-                  }
-               /*   else if (currentScript.Script_Options[i].Script_Option_Type == 5)
-                  {
-                      if (currentScript.Script_Options[i].Script_Option_Text == "{TENDATES}")
-                      {
-                          for(let k=0;k<10;k++)
-                          {
-                              var strDate = new Date();
-                              strDate.setDate(strDate.getDate() + k);
-                              strDate = formatDate(strDate);
-                              msgText = msgText + "<button name='Obj_" + currentScript.Script_Options[i].Script_Code + "_" + k + "' class='msger-response-btn' type='button' onClick='javascript:SelectedOption(this," + currentScript.Script_Options[i].Script_Option_Id + ",\"" + strDate + "\");'>" + strDate + "</button>";
-                          }
-                      }
-                      
-                  }*/
-                   
-                
-                   
-
-                   
-                
-                
-                  else
-                  {
-                      currentScript_Option_Id = currentScript.Script_Options[i].Script_Option_Id;
-                      currentScript_Option_Value = currentScript.Script_Options[i].Script_Option_Value;
-                  }
-              }
-          }
+          let options = currentScript.Script_Options;
           
-          if (currentScript.Script_Options.length == 1)
-          { 
-              msgerInput.disabled = false;  msgerInput.focus(); 
-          }
-          else
-              msgerInput.disabled = true;
-              
+          if (options !== null && options !== [] && options !== undefined)
+          {
+            if (currentScript.Script_Options.length > 0)
+            {
+                if (currentScript.Script_Options[0].Script_Option_Type == 1)
+                    msgText = msgText + "<br/>";
+                let i = 0;
+                for (i=0;i<currentScript.Script_Options.length; i++)
+                {
+                    if (currentScript.Script_Options[i].Script_Option_Type == 1)
+                    {
+                        msgText = msgText + "<button name='Obj_" + currentScript.Script_Options[i].Script_Code + "' class='msger-response-btn' type='button' onClick='javascript:SelectedOption(this," + currentScript.Script_Options[i].Script_Option_Id + ",\"" + currentScript.Script_Options[i].Script_Option_Value + "\");'>" + currentScript.Script_Options[i].Script_Option_Text + "</button>";
+                    }
+                    else if (currentScript.Script_Options[i].Script_Option_Type == 0)
+                    {
+                        botResponse();        
+                    }
+                    else
+                    {
+                        currentScript_Option_Id = currentScript.Script_Options[i].Script_Option_Id;
+                        currentScript_Option_Value = currentScript.Script_Options[i].Script_Option_Value;
+                    }
+                }
+            }
+            
+            if (currentScript.Script_Options.length == 1)
+            { 
+                msgerInput.disabled = false;  msgerInput.focus(); 
+            }
+            else
+                msgerInput.disabled = true;
+          } 
           appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
       }
   }
@@ -536,6 +521,7 @@ const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
           document.getElementById('lnkHindi').style.color = '#dbc752';
       
       fetch("http://13.233.211.102/appointmentbot/api/get_chat_action/", {
+      // fetch("http://localhost:8000/appointmentbot/api/get_chat_action/", {
             method: "POST",
             mode: 'cors',
             body: JSON.stringify({
