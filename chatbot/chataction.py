@@ -4,7 +4,7 @@
 # # Read JSON data from the request body
 # json_data = '...'
 
-# url = 'http://13.233.211.102/appointmentbot/api/get_chat_action/'
+# url = 'https://mahi-durg.app/appointmentbot/api/get_chat_action/'
 
 # try:
 #     # Encode JSON data
@@ -66,7 +66,7 @@ def send_json_data():
         encoded_data = json.dumps(json_data).encode('utf-8')
 
         # Specify the URL to send the request
-        url = 'http://13.233.211.102/appointmentbot/api/get_chat_action/'
+        url = 'https://mahi-durg.app/appointmentbot/api/get_chat_action/'
 
         # Set headers
         headers = {'Content-Type': 'application/json', 'Content-Length': len(encoded_data)}

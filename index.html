@@ -2,7 +2,7 @@
     
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Dr. Mohite Appointment Booking</title>
+	<title>Mahi-Durg Appointment Booking</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <!-- jQuery library -->
@@ -399,7 +399,7 @@ const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
       //https://www.gyaagl.app/apis/chatbot/chataction
       //http://localhost:8000/appointmentbot/api/get_chat_action/
       
-      fetch("http://13.233.211.102/appointmentbot/api/get_chat_action/", {
+      fetch("https://mahi-durg.app/appointmentbot/api/get_chat_action/", {
          // fetch("http://localhost:8000/appointmentbot/api/get_chat_action/", {
             method: "POST",
             body: JSON.stringify({
@@ -520,7 +520,7 @@ const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
       else if (language=='HI')
           document.getElementById('lnkHindi').style.color = '#dbc752';
       
-      fetch("http://13.233.211.102/appointmentbot/api/get_chat_action/", {
+      fetch("https://mahi-durg.app/appointmentbot/api/get_chat_action/", {
       // fetch("http://localhost:8000/appointmentbot/api/get_chat_action/", {
             method: "POST",
             mode: 'cors',
@@ -602,7 +602,7 @@ const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
   
    
 // Call the API
-//fetch("http://13.233.211.102/doctor/api/get_doctor_location_bylocationtoken/", {
+//fetch("https://mahi-durg.app/doctor/api/get_doctor_location_bylocationtoken/", {
 // fetch("http://localhost:8001/doctor/api/get_doctor_location_bylocationtoken/", {
 //   method: "POST",
 //   mode: 'cors',
@@ -631,13 +631,13 @@ const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
 //   const locationImageElement = document.getElementById('logo_image');
 //   var result = locationImage.replace(/^\/staticfiles\/media\//, '');
 //   // Set the src attribute of the location_image element to the retrieved locationImage
-//   locationImageElement.src = "http://13.233.211.102/doctor/static/media/"+result;
+//   locationImageElement.src = "https://mahi-durg.app/doctor/static/media/"+result;
 // })
 // .catch(error => {
 //   console.error('Error fetching API:', error);
 // });
 // Call the API to retrieve doctor location data
-    fetch("http://13.233.211.102/doctor/api/get_doctor_location_bylocationtoken/", {
+    fetch("https://mahi-durg.app/doctor/api/get_doctor_location_bylocationtoken/", {
       method: "POST",
       mode: 'cors',
       body: JSON.stringify({
@@ -671,10 +671,10 @@ const USER_ID = Math.floor(Date.now() / 1000); // Date.now();
         if (locationImage) {
           // If location_image exists, set the src attribute of the location_image element
           var result = locationImage.replace(/^\/staticfiles\/media\//, '');
-          locationImageElement.src = "http://13.233.211.102/doctor/static/media/" + result;
+          locationImageElement.src = "https://mahi-durg.app/doctor/static/media/" + result;
         } else {
           // Handle case where location_image is not available
-          locationImageElement.src = "http://13.233.211.102/doctor/static/media/location_images/cliniclogo2.jpg";
+          locationImageElement.src = "https://mahi-durg.app/doctor/static/media/location_images/cliniclogo2.jpg";
           console.warn('Location image not found in the API response');
         }
       } else {
